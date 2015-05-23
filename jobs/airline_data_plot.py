@@ -48,20 +48,20 @@ def plot(delays):
     minutes  = [d[1] for d in delays]
     index    = list(xrange(len(airlines)))
 
-    fig, axe = plt.subplots()
+    fig, axe = plt.subplots(figsize=(12,6))
     bars = axe.barh(index, minutes)
 
     # Add the total minutes to the right
     for idx, air, min in zip(index, airlines, minutes):
         if min > 0:
             bars[idx].set_color('#d9230f')
-            axe.annotate(" %0.0f min" % min, xy=(min+1, idx+0.5), va='center')
+            axe.annotate(" %0.0f min" % min, xy=(min+1, idx+0.5), va='center', fontsize=8)
         else:
             bars[idx].set_color('#469408')
-            axe.annotate(" %0.0f min" % min, xy=(10, idx+0.5), va='center')
+            axe.annotate(" %0.0f min" % min, xy=(10, idx+0.5), va='center', fontsize=8)
 
     # Set the ticks
-    ticks = plt.yticks([idx+ 0.5 for idx in index], airlines)
+    ticks = plt.yticks([idx+ 0.5 for idx in index], airlines, fontsize=10)
     xt = plt.xticks()[0]
     plt.xticks(xt, [' '] * len(xt))
 
@@ -69,6 +69,8 @@ def plot(delays):
     plt.grid(axis = 'x', color ='white', linestyle='-')
 
     plt.title('Total Minutes Delayed per Airline')
+    fig.tight_layout()
+    plt.savefig('../results/delay_by_airline.png', dpi=200)
     plt.show()
 
 
